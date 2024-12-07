@@ -45,6 +45,8 @@ namespace walkingAnimation
         public void DrawFrame(SpriteBatch batch, Vector2 screenPos)
         {
             rectangle = new Rectangle(frameWidth * frame, 0, frameWidth, texture.Height);
+            screenPos.X -= rectangle.Width / 2;
+            screenPos.Y -= rectangle.Height / 2;
             batch.Draw(texture, screenPos, rectangle, Color.White, Rotation, Origin, Vector2.One, SpriteEffects.None, Depth);
         }
 
