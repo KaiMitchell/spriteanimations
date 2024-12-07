@@ -66,8 +66,15 @@ namespace walkingAnimation
                 }
                 else
                 {
-                    State = false;
-                    Reset();
+                    if(!State)
+                    {
+                        frame = 1;
+                    }
+                    else
+                    {
+                        State = false;
+                        Reset();
+                    }
                 }
                 totalElapsed -= timePerFrame;
             }
