@@ -53,15 +53,14 @@ public class Game1 : Game
         // TODO: Add your update logic here
         float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
         KeyboardState kstate = Keyboard.GetState();
-        Console.WriteLine(_isJumping);
-        if(kstate.IsKeyDown(Keys.Left))
+        if(kstate.IsKeyDown(Keys.Left) && !_isJumping)
         {
             _isJumping = false;
             brolyWalkLeft.Play();
             brolyWalkLeft.UpdateFrame(elapsed, _isJumping);
         };
 
-        if(kstate.IsKeyDown(Keys.Up))
+        if(kstate.IsKeyDown(Keys.Up) && !_isJumping)
         {
             _isJumping = true;
         }
@@ -70,6 +69,11 @@ public class Game1 : Game
         {
             brolyJump.Play();
             brolyJump.UpdateFrame(elapsed, _isJumping);
+        }
+
+        if(!brolyJump.State)
+        {
+            _isJumping = false;
         }
 
         if(kstate.IsKeyUp(Keys.Left))

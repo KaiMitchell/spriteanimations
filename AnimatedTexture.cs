@@ -59,14 +59,17 @@ namespace walkingAnimation
 
             if(totalElapsed > timePerFrame)
             {
-                frame++;
-                frame %= frameCount;
+                if(frame < frameCount - 1)
+                {
+                    frame++;
+                    frame %= frameCount;
+                }
+                else
+                {
+                    State = false;
+                    Reset();
+                }
                 totalElapsed -= timePerFrame;
-            }
-            if(frame >= frameCount)
-            {
-                State = false;
-                Reset();
             }
         }
 
@@ -78,7 +81,6 @@ namespace walkingAnimation
 
         public void Play() 
         {
-            State = true;
             _isPaused = false;
         }
 
