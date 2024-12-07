@@ -4,9 +4,11 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>/home/student/spriteexperiments/walkingAnimation/Content/brolyJump.png</File>
     <File>/home/student/spriteexperiments/walkingAnimation/Content/brolyWalkLeft.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File>brolyWalkLeft</File>
   </DestFiles>
 </SourceFileCollection>

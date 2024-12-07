@@ -9,9 +9,13 @@ namespace walkingAnimation;
 
 public class Game1 : Game
 {
-    private AnimatedTexture spriteTexture;
+    private AnimatedTexture brolyWalkLeft;
+    private AnimatedTexture brolyJump;
+
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+
+    public bool _isJumping;
 
     Viewport viewport;
     Vector2 characterPos;
@@ -20,7 +24,8 @@ public class Game1 : Game
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
-        spriteTexture = new AnimatedTexture(Vector2.Zero, 0f, 0f, 0f);
+        brolyWalkLeft = new AnimatedTexture(Vector2.Zero, 0f, 0f, 0f);
+        brolyJump = new AnimatedTexture(Vector2.Zero, 0f, 0f, 0f);
     }
 
     protected override void Initialize()
@@ -34,7 +39,8 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         // TODO: use this.Content to load your game content here
-        spriteTexture.Load(Content, "brolyWalkLeft", 13, 10);
+        brolyWalkLeft.Load(Content, "brolyWalkLeft", 13, 10);
+        brolyJump.Load(Content, "brolyJump", 8, 10);
         viewport = _graphics.GraphicsDevice.Viewport;
         characterPos = new Vector2(viewport.Width / 2, viewport.Height / 2);
     }
@@ -47,15 +53,28 @@ public class Game1 : Game
         // TODO: Add your update logic here
         float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
         KeyboardState kstate = Keyboard.GetState();
+        Console.WriteLine(_isJumping);
         if(kstate.IsKeyDown(Keys.Left))
         {
-            spriteTexture.Play();
-            spriteTexture.UpdateFrame(elapsed);
+            _isJumping = false;
+            brolyWalkLeft.Play();
+            brolyWalkLeft.UpdateFrame(elapsed, _isJumping);
         };
+
+        if(kstate.IsKeyDown(Keys.Up))
+        {
+            _isJumping = true;
+        }
+
+        if(_isJumping)
+        {
+            brolyJump.Play();
+            brolyJump.UpdateFrame(elapsed, _isJumping);
+        }
 
         if(kstate.IsKeyUp(Keys.Left))
         {
-            spriteTexture.Pause();
+            brolyWalkLeft.Pause();
         }
 
         base.Update(gameTime);
@@ -67,7 +86,15 @@ public class Game1 : Game
 
         // TODO: Add your drawing code here
         _spriteBatch.Begin();
-        spriteTexture.DrawFrame(_spriteBatch, characterPos);
+        if(!_isJumping)
+        {
+            brolyWalkLeft.DrawFrame(_spriteBatch, characterPos);
+        }
+        else 
+        {
+            brolyJump.DrawFrame(_spriteBatch, characterPos);
+        }
+
         _spriteBatch.End();
 
         base.Draw(gameTime);
