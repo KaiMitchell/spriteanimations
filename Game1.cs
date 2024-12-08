@@ -10,12 +10,15 @@ namespace walkingAnimation;
 public class Game1 : Game
 {
     private AnimatedTexture brolyWalkLeft;
+    private AnimatedTexture brolyWalkRight;
     private AnimatedTexture brolyJump;
 
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
     public bool _isJumping;
+    public bool _isWalkingLeft;
+    public bool _isWalkingRight;
 
     Viewport viewport;
     Vector2 characterPos;
@@ -25,6 +28,7 @@ public class Game1 : Game
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
         brolyWalkLeft = new AnimatedTexture(Vector2.Zero, 0f, 0f, 0f);
+        brolyWalkRight = new AnimatedTexture(Vector2.Zero, 0f, 0f, 0f);
         brolyJump = new AnimatedTexture(Vector2.Zero, 0f, 0f, 0f);
     }
 
@@ -40,6 +44,7 @@ public class Game1 : Game
 
         // TODO: use this.Content to load your game content here
         brolyWalkLeft.Load(Content, "brolyWalkLeft", 13, 10);
+        brolyWalkRight.Load(Content, "brolyWalkRight", 13, 10);
         brolyJump.Load(Content, "brolyJump", 8, 10);
         viewport = _graphics.GraphicsDevice.Viewport;
         characterPos = new Vector2(viewport.Width / 2, viewport.Height / 2);
@@ -49,36 +54,49 @@ public class Game1 : Game
     {
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
-
         // TODO: Add your update logic here
         float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
         KeyboardState kstate = Keyboard.GetState();
         if(kstate.IsKeyDown(Keys.Left) && !_isJumping)
         {
-            _isJumping = false;
+            _isWalkingRight = false;
+            _isWalkingLeft = true;
             brolyWalkLeft.Play();
-            brolyWalkLeft.UpdateFrame(elapsed, _isJumping);
+            brolyWalkLeft.UpdateFrame(elapsed, _isJumping, _isWalkingLeft, _isWalkingRight);
+        }
+        else if(kstate.IsKeyUp(Keys.Left))
+        {
+            _isWalkingLeft = false;
+            brolyWalkLeft.Pause();
         };
+
+        if(kstate.IsKeyDown(Keys.Right) && !_isJumping)
+        {
+            _isWalkingLeft = false;
+            _isWalkingRight = true;
+            brolyWalkRight.Play();
+            brolyWalkRight.UpdateFrame(elapsed, false, true, false);
+        } 
+        else if(kstate.IsKeyUp(Keys.Right))
+        {
+            _isWalkingRight = false;
+            brolyWalkRight.Pause();
+        }
 
         if(kstate.IsKeyDown(Keys.Up) && !_isJumping)
         {
             _isJumping = true;
-        }
+            brolyJump.Play();
+        };
 
         if(_isJumping)
         {
-            brolyJump.Play();
-            brolyJump.UpdateFrame(elapsed, _isJumping);
-        }
-
-        if(!brolyJump.State)
-        {
-            _isJumping = false;
-        }
-
-        if(kstate.IsKeyUp(Keys.Left))
-        {
-            brolyWalkLeft.Pause();
+            brolyJump.UpdateFrame(elapsed, true, false, false);
+            if(!brolyJump.IsJumping)
+            {
+                _isJumping = false;
+                brolyJump.Reset();
+            };
         }
 
         base.Update(gameTime);
@@ -90,13 +108,21 @@ public class Game1 : Game
 
         // TODO: Add your drawing code here
         _spriteBatch.Begin();
-        if(!_isJumping)
+        if(_isJumping)
         {
-            brolyWalkLeft.DrawFrame(_spriteBatch, characterPos);
+            brolyJump.DrawFrame(_spriteBatch, characterPos, SpriteEffects.None);
         }
-        else 
+        else if(_isWalkingRight)
         {
-            brolyJump.DrawFrame(_spriteBatch, characterPos);
+            brolyWalkRight.DrawFrame(_spriteBatch, characterPos, SpriteEffects.FlipHorizontally);
+        }
+        else if(_isWalkingLeft)
+        {
+            brolyWalkLeft.DrawFrame(_spriteBatch, characterPos, SpriteEffects.None);
+        }
+        else
+        {
+            brolyWalkLeft.DrawFrame(_spriteBatch, characterPos, SpriteEffects.None);
         }
 
         _spriteBatch.End();

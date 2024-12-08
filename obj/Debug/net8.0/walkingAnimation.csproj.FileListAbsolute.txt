@@ -26,3 +26,4 @@
 /home/student/spriteexperiments/walkingAnimation/obj/Debug/net8.0/ref/walkingAnimation.dll
 /home/student/spriteexperiments/walkingAnimation/obj/Debug/net8.0/walkingAnimation.sourcelink.json
 /home/student/spriteexperiments/walkingAnimation/bin/Debug/net8.0/Content/brolyJump.xnb
+/home/student/spriteexperiments/walkingAnimation/bin/Debug/net8.0/Content/brolyWalkRight.xnb

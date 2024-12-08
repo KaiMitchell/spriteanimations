@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>/home/student/spriteexperiments/walkingAnimation/Content/brolyJump.png</SourceFile>
-  <SourceTime>2024-12-06T04:53:43.7511871+13:00</SourceTime>
-  <DestFile>/home/student/spriteexperiments/walkingAnimation/Content/bin/DesktopGL/brolyJump.xnb</DestFile>
-  <DestTime>2024-12-08T15:20:01.8882827+13:00</DestTime>
+  <SourceFile>/home/student/spriteexperiments/walkingAnimation/Content/brolyWalkRight.png</SourceFile>
+  <SourceTime>2024-12-08T13:56:20.9994472+13:00</SourceTime>
+  <DestFile>/home/student/spriteexperiments/walkingAnimation/Content/bin/DesktopGL/Content/brolyWalkRight.xnb</DestFile>
+  <DestTime>2024-12-08T14:03:56.7058771+13:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2024-08-17T05:05:56+12:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

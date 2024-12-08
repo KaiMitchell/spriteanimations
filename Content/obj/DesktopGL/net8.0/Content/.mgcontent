@@ -6,9 +6,11 @@
   <SourceFiles>
     <File>/home/student/spriteexperiments/walkingAnimation/Content/brolyJump.png</File>
     <File>/home/student/spriteexperiments/walkingAnimation/Content/brolyWalkLeft.png</File>
+    <File>/home/student/spriteexperiments/walkingAnimation/Content/brolyWalkRight.png</File>
   </SourceFiles>
   <DestFiles>
-    <File xsi:nil="true" />
+    <File>brolyJump</File>
     <File>brolyWalkLeft</File>
+    <File>brolyWalkRight</File>
   </DestFiles>
 </SourceFileCollection>
