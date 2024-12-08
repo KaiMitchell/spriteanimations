@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("walkingAnimation")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+244aea649ac499cfa84b1b28f67cdf13aa992970")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+84a80cdd7b2cc3322a56ed9d648058d4bc5c5344")]
 [assembly: System.Reflection.AssemblyProductAttribute("walkingAnimation")]
 [assembly: System.Reflection.AssemblyTitleAttribute("walkingAnimation")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -61,8 +61,9 @@ public class Game1 : Game
         {
             _isWalkingRight = false;
             _isWalkingLeft = true;
+            characterPos.X -= 3;
             brolyWalkLeft.Play();
-            brolyWalkLeft.UpdateFrame(elapsed, _isJumping, _isWalkingLeft, _isWalkingRight);
+            brolyWalkLeft.UpdateFrame(elapsed, false, true, false);
         }
         else if(kstate.IsKeyUp(Keys.Left))
         {
@@ -74,8 +75,9 @@ public class Game1 : Game
         {
             _isWalkingLeft = false;
             _isWalkingRight = true;
+            characterPos.X += 3;
             brolyWalkRight.Play();
-            brolyWalkRight.UpdateFrame(elapsed, false, true, false);
+            brolyWalkRight.UpdateFrame(elapsed, false, false, true);
         } 
         else if(kstate.IsKeyUp(Keys.Right))
         {
@@ -86,6 +88,10 @@ public class Game1 : Game
         if(kstate.IsKeyDown(Keys.Up) && !_isJumping)
         {
             _isJumping = true;
+            if(_isJumping)
+            {
+                characterPos.Y -= 3;
+            }
             brolyJump.Play();
         };
 
@@ -94,10 +100,11 @@ public class Game1 : Game
             brolyJump.UpdateFrame(elapsed, true, false, false);
             if(!brolyJump.IsJumping)
             {
+                characterPos.Y += 3;
                 _isJumping = false;
                 brolyJump.Reset();
             };
-        }
+        };
 
         base.Update(gameTime);
     }
@@ -114,7 +121,7 @@ public class Game1 : Game
         }
         else if(_isWalkingRight)
         {
-            brolyWalkRight.DrawFrame(_spriteBatch, characterPos, SpriteEffects.FlipHorizontally);
+            brolyWalkRight.DrawFrame(_spriteBatch, characterPos, SpriteEffects.None);
         }
         else if(_isWalkingLeft)
         {

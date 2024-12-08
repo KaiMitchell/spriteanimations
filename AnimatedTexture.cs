@@ -46,7 +46,14 @@ namespace walkingAnimation
 
         public void DrawFrame(SpriteBatch batch, Vector2 screenPos, SpriteEffects effect)
         {
-            rectangle = new Rectangle(frameWidth * frame, 0, frameWidth, texture.Height);
+            if(IsWalkingRight)
+            {
+                rectangle = new Rectangle(frameWidth * (frameCount - frame), 0, frameWidth, texture.Height);
+            }
+            else
+            {
+                rectangle = new Rectangle(frameWidth * frame, 0, frameWidth, texture.Height);
+            }
             screenPos.X -= rectangle.Width / 2;
             screenPos.Y -= rectangle.Height / 2;
             batch.Draw(texture, screenPos, rectangle, Color.White, Rotation, Origin, Vector2.One, effect, Depth);
@@ -61,7 +68,7 @@ namespace walkingAnimation
                 return;
 
             totalElapsed += elapsed;
-
+    
             if(totalElapsed > timePerFrame)
             {
                 frame++;
@@ -71,9 +78,13 @@ namespace walkingAnimation
                     {
                         Reset();
                     }
-                    else
+                    else if(_isWalkingLeft)
                     {
                         frame = 1;
+                    }
+                    else if(_isWalkingRight)
+                    {
+                        frame = 2;
                     }
                 }
                 totalElapsed -= timePerFrame;
